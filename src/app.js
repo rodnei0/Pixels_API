@@ -1,10 +1,13 @@
-import express from "express";
-import cors from "cors";
-import productsRouter from "./routes/productsRouter.js";
+import express, { json } from 'express';
+import cors from 'cors';
+import router from './routes/index.js';
 
 const app = express();
-app.use(express.json());
 app.use(cors());
-app.use(productsRouter);
+app.use(json());
 
-app.listen(5000);
+app.use(router);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on ${process.env.PORT}`);
+});
