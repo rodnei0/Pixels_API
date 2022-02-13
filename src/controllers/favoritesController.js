@@ -15,3 +15,21 @@ export default async function favoriteProducts(req,res){
         res.sendStatus(500);
     }
 }
+
+export default async function addFavorites(req,res){
+    const {user} = req.locals;
+    const product = req.body;
+
+    try{
+        if(!user){
+            return sentStatus(401);
+        }
+    
+        await db.collection('favorites').insertOne({idUser:user._id, product }).toArray;
+        return res.sendStatus(201);
+    }catch(err){
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
