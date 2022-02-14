@@ -7,7 +7,6 @@ export async function getProducts (req, res) {
     try{
         const productsCollection = db.collection("products");
         const products = await productsCollection.find({category: category}).toArray();
-        
 		res.status(201).send(products);
     } catch (error) {
         res.status(500).send('A culpa foi do estagiário');
