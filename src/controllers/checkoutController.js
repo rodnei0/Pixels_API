@@ -10,9 +10,15 @@ export async function checkout(req,res){
         if(!user){
             return res.sendStatus(401);
         }
+
         const productsCollection = db.collection("products");
         const products = await productsCollection.find({_id: {$in: ids}});
+
+        if (!products) {
+            return res.sendStatus(404);
+        }
         
+        await db.collection("historic").insertOne({userId: user._id, items, date: Date.now()})
 
 		res.sendStatus(200);
     }catch(error){
