@@ -5,9 +5,8 @@ export default async function favoriteProducts(req,res){
     const { user } = res.locals;
 
     try{
-    
         if(!user){
-            return sentStatus(401);
+            return res.sendStatus(401);
         }
     
         const userData = await db.collection('favorites').find({idUser:user._id}).toArray;
