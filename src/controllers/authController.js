@@ -13,8 +13,8 @@ export async function signIn(req,res){
         }
         if(bcrypt.compareSync(password,user.password)){
             const token = uuid();
-            await db.collection('sessions').insertOne({token, idUser: user._id});
-            return res.status(200).send({token});
+            await db.collection('sessions').insertOne({token, userId: user._id});
+            return res.status(200).send({...user, token: token})
         }
     }catch(error){
         console.log(error);
